@@ -1,5 +1,5 @@
 /*
- * Copyright 2002-2016 the original author or authors.
+ * Copyright 2002-2018 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,6 +42,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
+ * Unit tests for {@link FilteringWebHandler}.
  * @author Rossen Stoyanchev
  */
 public class FilteringWebHandlerTests {
@@ -58,7 +59,7 @@ public class FilteringWebHandlerTests {
 		StubWebHandler targetHandler = new StubWebHandler();
 
 		new FilteringWebHandler(targetHandler, Arrays.asList(filter1, filter2, filter3))
-				.handle(MockServerWebExchange.from(MockServerHttpRequest.get("/").build()))
+				.handle(MockServerWebExchange.from(MockServerHttpRequest.get("/")))
 				.block(Duration.ZERO);
 
 		assertTrue(filter1.invoked());
@@ -73,7 +74,7 @@ public class FilteringWebHandlerTests {
 		StubWebHandler targetHandler = new StubWebHandler();
 
 		new FilteringWebHandler(targetHandler, Collections.emptyList())
-				.handle(MockServerWebExchange.from(MockServerHttpRequest.get("/").build()))
+				.handle(MockServerWebExchange.from(MockServerHttpRequest.get("/")))
 				.block(Duration.ZERO);
 
 		assertTrue(targetHandler.invoked());
@@ -88,7 +89,7 @@ public class FilteringWebHandlerTests {
 		StubWebHandler targetHandler = new StubWebHandler();
 
 		new FilteringWebHandler(targetHandler, Arrays.asList(filter1, filter2, filter3))
-				.handle(MockServerWebExchange.from(MockServerHttpRequest.get("/").build()))
+				.handle(MockServerWebExchange.from(MockServerHttpRequest.get("/")))
 				.block(Duration.ZERO);
 
 		assertTrue(filter1.invoked());
@@ -104,7 +105,7 @@ public class FilteringWebHandlerTests {
 		StubWebHandler targetHandler = new StubWebHandler();
 
 		new FilteringWebHandler(targetHandler, Collections.singletonList(filter))
-				.handle(MockServerWebExchange.from(MockServerHttpRequest.get("/").build()))
+				.handle(MockServerWebExchange.from(MockServerHttpRequest.get("/")))
 				.block(Duration.ofSeconds(5));
 
 		assertTrue(filter.invoked());
